@@ -32,9 +32,62 @@
     font-size: 3em;
     cursor: pointer;
 }
-@media screen and (min-width: 992px){
+.moves-div{
+    margin: 10px auto;
+    text-align: center
+}
+
+.move-text{
+    color: red;
+}
+.win-msg{
+    font-size: 1.8em;
+    padding: 60px 50px 50px 50px;
+    text-align: center;
+}
+.move-count{
+    color: red;
+}
+.close-btn{
+    font-size: 30px;
+    color: #666;
+    float: right;
+    margin-top: 5px;
+    margin-right: 20px;
+}
+.modal-cover{
+    height: -webkit-fill-available;
+    top: 0px;
+    background: transparent;
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+}
+@media screen and (min-width: 993px){
+    
+    .modal{
+        background: #fff;
+        position: absolute;
+        width: 89%;
+        top: 25%;
+        left: 5%;
+        z-index: 1000;
+        box-shadow: 0 3px 9px rgba(0,0,0,.5);
+        border-top: 4px solid red; 
+    }
+}
+@media screen and (max-width: 992px){
     .arrow-btns{
         display: none;
+    }
+    .modal{
+        background: #fff;
+        position: absolute;
+        width: 100%;
+        top: 25%;
+        z-index: 1000;
+        box-shadow: 0 3px 9px rgba(0,0,0,.5);
+        border-top: 4px solid red; 
     }
 }
 .zero{

@@ -14,8 +14,12 @@ export default class HomePage extends React.PureComponent {
         [0, 0, 0, 0],
         [0, 0, 0, 0]
       ],
-      colors: { 0: "zero", 2: "two", 4: "four", 8: "eight", 16: "sixteen", 32: "thirty-two", 64: "sixty-four", 128: "one-twenty-eight", 256: "two-fifty-six", 512: "five-twelve", 1024: "thousond-twenty-four", 2048: "twenty-forty-eight" }
+      
+      colors: { 0: "zero", 2: "two", 4: "four", 8: "eight", 16: "sixteen", 32: "thirty-two", 64: "sixty-four", 128: "one-twenty-eight", 256: "two-fifty-six", 512: "five-twelve", 1024: "thousond-twenty-four", 2048: "twenty-forty-eight" },
+    moves: 0,
+    won: false,
     }
+   
   }
   keyPress(data) {
     if (data == "down") {
@@ -271,9 +275,23 @@ export default class HomePage extends React.PureComponent {
       this.numbers[row][empty[0]] = 2;
 
     }
-    this.setState({ numbers: this.numbers }, this.forceUpdate())
+    this.moves = this.state.moves + 1;
+    let won = false;
+    for(let i=0;i<4;i++){
+      for(let j=0;j<4;j++){
+        if(this.state.numbers[i][j]==8){
+          won = true;
+          // location.reload();
+        }
+      }
+    }
+    this.setState({ numbers: this.numbers, moves: this.moves, won },()=>{
+      
+      this.forceUpdate();
+    });
   }
   render() {
+    
     let num = { ...this.state.numbers }
     return (
       <div>
@@ -317,6 +335,7 @@ export default class HomePage extends React.PureComponent {
             </div>
           </div>
         </Swipe>
+        <div className="moves-div"><span className="move-text">moves: </span><span className="move-count">{this.state.moves}</span></div>
         <div className="arrow-btns">
           <div className="up key" onClick={this.keyPress.bind(this, "up")}>^</div>
           <div className="buttons">
@@ -325,6 +344,7 @@ export default class HomePage extends React.PureComponent {
           </div>
           <div className="rotate down key" onClick={this.keyPress.bind(this, "down")}>^</div>
         </div>
+        {this.state.won ? <div><div onClick={()=>{this.setState({won:false}); location.reload();}} className="modal-cover"></div><div className="modal"><div className="close-btn" onClick={()=>{this.setState({won:false}); location.reload();}}>X</div><div className="win-msg">you won.....!!!! and you completed this task in { this.state.moves} moves</div></div></div>:""}
       </div>
     );
   }
